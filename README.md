@@ -9,7 +9,7 @@ Please note that **ANY** currently online websites utilizing this code with the 
 
 Please **DO NOT** input your username/password into any other URL links that are running the same code as your information may be stolen. Even if the website links to me, it does not mean I endorse it or that I am the person running it.
 
-Riot Games, if you would like me to take this application down please let me know. I can be contacted via [Twitter](https://twitter.com/iilness10) or [Email](mailto: andre.aliamna90@gmail.com).
+Riot Games, if you would like me to take this application down please let me know. I can be contacted via [Twitter](https://twitter.com/iilness10) or [Email](mailto: andre.aliaman90@gmail.com) .
 
 
 ## Notes
