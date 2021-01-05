@@ -8,6 +8,7 @@ from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
+auth = HTTPBasicAuth()
 
 users = {
     "john": generate_password_hash("hello"),
@@ -19,8 +20,6 @@ limiter = Limiter(
     key_func=get_remote_address,
     default_limits=["30 per hour", "15 per minute", "2 per second"],
 )
-
-auth = HTTPBasicAuth()
 
 # Gives competitive movement, game outcome, and associated colors
 match_movement_hash = {
@@ -45,12 +44,6 @@ maps_hash = {
   '': 'unknown'
 }
 
-@auth.verify_password
-def verify_password(username, password):
-    if username in users and \
-            check_password_hash(users.get(username), password):
-        return username
-
 @app.before_request
 def before_request():
     scheme = request.headers.get('X-Forwarded-Proto')
@@ -63,6 +56,12 @@ def before_request():
 def ratelimit_handler(e):
     print('Rate limit has been exceeded: %s' % e.description)
     return "<h1>Rate limit exceeded. Please try again later.</h1>", 429
+
+@auth.verify_password
+def verify_password(username, password):
+    if username in users and \
+            check_password_hash(users.get(username), password):
+        return username
 
 @app.route('/')
 def home():
