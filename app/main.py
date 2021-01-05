@@ -64,12 +64,9 @@ def verify_password(username, password):
         return username
 
 @app.route('/')
+@auth.login_required
 def home():
   return render_template('login.html')
-
-@auth.login_required
-def index():
-    return "Hello, %s!" % auth.current_user()
 
 # Redirect people to login page
 @app.route('/match_history', methods=['GET'])
