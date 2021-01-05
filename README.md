@@ -16,7 +16,7 @@ Riot Games, if you would like me to take this application down please let me kno
 Inspired from https://github.com/dylantheriot/valorant-match-history
 
 Hosted at https://valorantelo-iilness.herokuapp.com/
-user: valorant
+user: valorant 
 pass: gotoradiant
 
 ## Alternatives
