@@ -4,14 +4,23 @@ from .valApi import ValorantAPI
 import time
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_httpauth import HTTPBasicAuth
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
+
+users = {
+    "john": generate_password_hash("hello"),
+    "susan": generate_password_hash("bye")
+}
 
 limiter = Limiter(
     app,
     key_func=get_remote_address,
     default_limits=["30 per hour", "15 per minute", "2 per second"],
 )
+
+auth = HTTPBasicAuth()
 
 # Gives competitive movement, game outcome, and associated colors
 match_movement_hash = {
@@ -36,6 +45,12 @@ maps_hash = {
   '': 'unknown'
 }
 
+@auth.verify_password
+def verify_password(username, password):
+    if username in users and \
+            check_password_hash(users.get(username), password):
+        return username
+
 @app.before_request
 def before_request():
     scheme = request.headers.get('X-Forwarded-Proto')
@@ -52,6 +67,10 @@ def ratelimit_handler(e):
 @app.route('/')
 def home():
   return render_template('login.html')
+
+@auth.login_required
+def index():
+    return "Hello, %s!" % auth.current_user()
 
 # Redirect people to login page
 @app.route('/match_history', methods=['GET'])

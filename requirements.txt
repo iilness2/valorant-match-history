@@ -13,4 +13,4 @@ requests==2.25.1
 six==1.15.0
 urllib3==1.26.2
 Werkzeug==1.0.1
-wsgi-basic-auth==1.1.0
+basic auth flask==4.2.0
